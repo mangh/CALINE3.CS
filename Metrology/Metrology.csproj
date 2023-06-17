@@ -1,13 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <!-- The RootNamespace property is essential: it must be specified explicitly: -->
-    <RootNamespace>CALINE3.Metrology</RootNamespace>
+    <RootNamespace>Metrology</RootNamespace>
     <!-- It is also good to have an AssemblyName property (though not necessary): -->
-    <AssemblyName>CALINE3.Metrology</AssemblyName>
+    <AssemblyName>Metrology</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
