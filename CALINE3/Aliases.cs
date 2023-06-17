@@ -1,4 +1,4 @@
-﻿#if DIMENSIONAL_ANALYSIS
+#if DIMENSIONAL_ANALYSIS
     global using Metrology;
     global using static Metrology.Math;
 #else
