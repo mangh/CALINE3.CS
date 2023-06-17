@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metrology", "Metrology\Metr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CALINE3", "CALINE3\CALINE3.csproj", "{ADC35200-D100-4D40-BCEE-CBDAD56428CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "Benchmark\Benchmark.csproj", "{0E0F24E1-E767-4B1C-A04F-F026AB36C652}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,9 +30,16 @@ Global
 		{ADC35200-D100-4D40-BCEE-CBDAD56428CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADC35200-D100-4D40-BCEE-CBDAD56428CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADC35200-D100-4D40-BCEE-CBDAD56428CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E0F24E1-E767-4B1C-A04F-F026AB36C652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E0F24E1-E767-4B1C-A04F-F026AB36C652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E0F24E1-E767-4B1C-A04F-F026AB36C652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E0F24E1-E767-4B1C-A04F-F026AB36C652}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E0F24E1-E767-4B1C-A04F-F026AB36C652} = {7532237D-D069-44BF-BB7D-8385C3D4CBFD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9BB92159-F7BF-4D51-BDEE-6368F4E4F57A}

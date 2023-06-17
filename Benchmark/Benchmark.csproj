@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>$(DefineConstants);DIMENSIONAL_ANALYSIS</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants);DIMENSIONAL_ANALYSIS</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CALINE3\Aliases.cs" Link="Aliases.cs" />
+    <Compile Include="..\CALINE3\Const.cs" Link="Const.cs" />
+    <Compile Include="..\CALINE3\Euclid2D.cs" Link="Euclid2D.cs" />
+    <Compile Include="..\CALINE3\Job.cs" Link="Job.cs" />
+    <Compile Include="..\CALINE3\JobReader.cs" Link="JobReader.cs" />
+    <Compile Include="..\CALINE3\Link.cs" Link="Link.cs" />
+    <Compile Include="..\CALINE3\LinkActive.cs" Link="LinkActive.cs" />
+    <Compile Include="..\CALINE3\LinkElement.cs" Link="LinkElement.cs" />
+    <Compile Include="..\CALINE3\Meteo.cs" Link="Meteo.cs" />
+    <Compile Include="..\CALINE3\Plume.cs" Link="Plume.cs" />
+    <Compile Include="..\CALINE3\Receptor.cs" Link="Receptor.cs" />
+    <Compile Include="..\CALINE3\Statistics.cs" Link="Statistics.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Metrology\Metrology.csproj" />
+  </ItemGroup>
+
+</Project>
