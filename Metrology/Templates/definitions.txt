@@ -18,16 +18,16 @@
 //      Length
 //
 unit Meter "m" = <Length>;
-//unit Centimeter "cm" = 100 * Meter;
-//unit Millimeter "mm" = 1000 * Meter;
+unit Centimeter "cm" = 100 * Meter;
+unit Millimeter "mm" = 1000 * Meter;
 //unit Micron "\u00B5m" "micrometer" = 1.0e6 * Meter;
 //unit Angstrom "\u00C5" "angstrom" = 1.0e10 * Meter;
 //unit Kilometer "km" = Meter / 1000;
 
-//unit Inch "in" = Millimeter / 25.4;
-//unit /* international */ Foot "ft" = Inch / 12;
-//unit /* international */ Yard "yd" = Foot / 3;
-//unit /* international */ Mile "mil" = Yard / 1760;
+unit Inch "in" = Millimeter / 25.4;
+unit /* international */ Foot "ft" = Inch / 12;
+unit /* international */ Yard "yd" = Foot / 3;
+unit /* international */ Mile "mil" = Yard / 1760;
 
 //unit /* PostScript */ Point "pt" = 72 * Inch;
 //unit Pica "pc" = Point / 12;
@@ -37,8 +37,8 @@ unit Meter "m" = <Length>;
 //      Time
 //
 unit Second "s" = <Time>;
-//unit Minute "min" = Second / 60;
-//unit Hour "h" = Minute / 60;
+unit Minute "min" = Second / 60;
+unit Hour "h" = Minute / 60;
 //unit Day "d" = Hour / 24;
 //unit Week "wk" = Day / 7;
 //unit /* full */ Month "mo" = Day / 30;
@@ -49,8 +49,8 @@ unit Second "s" = <Time>;
 //      Mass
 //
 unit Kilogram "kg" = <Mass>;
-//unit Gram "g" = 1000 * Kilogram;
-//unit Microgram "\u03BCg" "mcg" = 1.0e6 * Gram;
+unit Gram "g" = 1000 * Kilogram;
+unit Microgram "\u03BCg" "mcg" = 1.0e6 * Gram;
 //unit Tonne "t" = Kilogram / 1000;
 
 //unit /* avoirdupois */ Pound "lb" = Kilogram / 0.45359237;
@@ -60,15 +60,15 @@ unit Kilogram "kg" = <Mass>;
 //
 //      Temperature
 //
-unit DegKelvin "K" "deg.K" = <Temperature>;
-unit DegCelsius "\u00B0C" "deg.C" = DegKelvin;
+//unit DegKelvin "K" "deg.K" = <Temperature>;
+//unit DegCelsius "\u00B0C" "deg.C" = DegKelvin;
 //unit DegRankine "\u00B0R" "deg.R" = (9 / 5) * DegKelvin;
-unit DegFahrenheit "\u00B0F" "deg.F" = (9 / 5) * DegKelvin;
+//unit DegFahrenheit "\u00B0F" "deg.F" = (9 / 5) * DegKelvin;
 
-scale Kelvin AbsoluteZero = DegKelvin 0.0;
-scale Celsius AbsoluteZero = DegCelsius -273.15;
-// scale Rankine AbsoluteZero = DegRankine 0.0;
-scale Fahrenheit AbsoluteZero = DegFahrenheit -273.15 * (9 / 5) + 32;
+//scale Kelvin AbsoluteZero = DegKelvin 0.0;
+//scale Celsius AbsoluteZero = DegCelsius -273.15;
+//scale Rankine AbsoluteZero = DegRankine 0.0;
+//scale Fahrenheit AbsoluteZero = DegFahrenheit -273.15 * (9 / 5) + 32;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -80,7 +80,7 @@ scale Fahrenheit AbsoluteZero = DegFahrenheit -273.15 * (9 / 5) + 32;
 //
 //      Amount of Substance
 //
-//unit Mole "mol" = <AmountOfSubstance>;
+unit Mole "mol" = <AmountOfSubstance>;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -95,7 +95,7 @@ scale Fahrenheit AbsoluteZero = DegFahrenheit -273.15 * (9 / 5) + 32;
 //      NOTE: the rates (conversion factors) below
 //      are to be updated on application startup.
 //
-unit<decimal> EUR "EUR" = <Money>;  // Euro
+//unit<decimal> EUR "EUR" = <Money>;  // Euro
 //unit<decimal> USD "USD" = 1.3433 * EUR; // US Dollar
 //unit<decimal> JPY "JPY" = 136.74 * EUR;  // Japanese Yen
 //unit<decimal> BGN "BGN" = 1.9558 * EUR;  // BulgarianLev
@@ -104,7 +104,7 @@ unit<decimal> EUR "EUR" = <Money>;  // Euro
 //unit<decimal> GBP "GBP" = 0.79055 * EUR;    // British Pound
 //unit<decimal> HUF "HUF" = 308.20 * EUR;  // Hungarian Forint
 //unit<decimal> LTL "LTL" = 3.4528 * EUR;  // Lithuanian Litas
-unit<decimal> PLN "PLN" = 4.1437 * EUR; // Polish Zloty
+//unit<decimal> PLN "PLN" = 4.1437 * EUR; // Polish Zloty
 //unit<decimal> RON "RON" = 4.3888 * EUR;  // Romanian New Lei
 //unit<decimal> SEK "SEK" = 9.1523 * EUR;  // SwedishKrona
 //unit<decimal> CHF "CHF" = 1.2150 * EUR;  // SwissFranc
@@ -163,14 +163,14 @@ unit Degree "\u00B0" "deg" : "{0}{1}" = (180 / "System.Math.PI") * Radian;
 //
 //      Frequency
 //
-//unit Hertz "Hz" = 1 / Second;
+unit Hertz "Hz" = 1 / Second;
 //unit KiloHertz "kHz" = Hertz / 1000;
 //unit MegaHertz "MHz" = KiloHertz / 1000;
 //unit GigaHertz "GHz" = MegaHertz / 1000;
 
 //unit Event_Sec "evt/s" = Hertz;
 //unit Event_Min "evt/m" = 1 / Minute | 60 * Hertz;
-//unit Event_Hour "evt/h" = 1 / Hour | 3600 * Hertz;
+unit Event_Hour "evt/h" = 1 / Hour | 3600 * Hertz;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -229,7 +229,7 @@ unit Degree "\u00B0" "deg" : "{0}{1}" = (180 / "System.Math.PI") * Radian;
 //      In such cases the parser is right - the factors are not consistent - 
 //      but it cannot display them correctly.
 //
-//unit Meter2 "m\u00B2" "m2" = Meter * Meter;
+unit Meter2 "m\u00B2" "m2" = Meter * Meter;
 //unit Centimeter2 "cm\u00B2" "cm2" = Centimeter * Centimeter | Meter2 * 1.0e4;
 //unit Kilometer2 "km\u00B2" "km2" = Kilometer * Kilometer | Meter2 / 1.0e6;
 
@@ -244,7 +244,7 @@ unit Degree "\u00B0" "deg" : "{0}{1}" = (180 / "System.Math.PI") * Radian;
 //
 //      Volume
 //
-//unit Meter3 "m\u00B3" "m3" = Meter2 * Meter;
+unit Meter3 "m\u00B3" "m3" = Meter2 * Meter;
 //unit Liter "L" = Meter3 * 1000;
 //unit Centimeter3 "cm\u00B3" "cm3" = Centimeter2 * Centimeter | Meter3 * 1.0e6;
 
@@ -257,7 +257,7 @@ unit Degree "\u00B0" "deg" : "{0}{1}" = (180 / "System.Math.PI") * Radian;
 //      Velocity
 //
 unit Meter_Sec "m/s" = Meter / Second;
-//unit Centimeter_Sec "cm/s" = Centimeter / Second | 100 * Meter_Sec;
+unit Centimeter_Sec "cm/s" = Centimeter / Second | 100 * Meter_Sec;
 //unit Kilometer_Hour "km/h" = Kilometer / Hour | Meter_Sec * (1/1000) / ((1/60)/60);
 //unit MPH "mph" "mi/h" = Mile / Hour | Meter_Sec * ((((100/2.54)/12)/3)/1760) / ((1/60)/60);
 
@@ -271,7 +271,7 @@ unit Meter_Sec2 "m/s\u00B2" "m/s2" = Meter_Sec / Second;
 //
 //      Velocity squared (kinetic and potential energy subexpressions)
 //
-//unit Meter2_Sec2 "m\u00B2/s\u00B2" "m2/s2" = Meter_Sec * Meter_Sec | Meter_Sec2 * Meter;
+unit Meter2_Sec2 "m\u00B2/s\u00B2" "m2/s2" = Meter_Sec * Meter_Sec | Meter_Sec2 * Meter;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -280,42 +280,42 @@ unit Meter_Sec2 "m/s\u00B2" "m/s2" = Meter_Sec / Second;
 //          momentum diffusivity,
 //          specific angular momentum)
 //
-//unit Meter2_Sec "m\u00B2/s" "m2/s" = Meter2 / Second | Meter_Sec * Meter | Meter2_Sec2 * Second;
+unit Meter2_Sec "m\u00B2/s" "m2/s" = Meter2 / Second | Meter_Sec * Meter | Meter2_Sec2 * Second;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //      Linear mass density
 //
-//unit Gram_Meter "g/m" = Gram / Meter;
+unit Gram_Meter "g/m" = Gram / Meter;
 //unit Gram_Kilometer "g/km" = Gram / Kilometer | Gram_Meter * 1000;
-//unit Gram_Mile "g/mi" = Gram / Mile | Gram_Meter / (1000/(25.4*12*3*1760));
-//unit Microgram_Meter "\u03BCg/m" "mcg/m" = Microgram / Meter | 1000000 * Gram_Meter;
+unit Gram_Mile "g/mi" = Gram / Mile | Gram_Meter / (1000/(25.4*12*3*1760));
+unit Microgram_Meter "\u03BCg/m" "mcg/m" = Microgram / Meter | 1000000 * Gram_Meter;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //      Volumetric mass density (aka. specific mass, mass concentration)
 //
-//unit Gram_Meter3 "g/m\u00B3" "g/m3" = Gram / Meter3;
-//unit Microgram_Meter3 "\u03BCg/m\u00B3" "mcg/m3" = Microgram / Meter3 | 1.0e6 * Gram_Meter3;
+unit Gram_Meter3 "g/m\u00B3" "g/m3" = Gram / Meter3;
+unit Microgram_Meter3 "\u03BCg/m\u00B3" "mcg/m3" = Microgram / Meter3 | 1.0e6 * Gram_Meter3;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //      Molar Volume
 //
-//unit Meter3_Mole "m\u00B3/mol" "m3/mol" = Meter3 / Mole;
+unit Meter3_Mole "m\u00B3/mol" "m3/mol" = Meter3 / Mole;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //      Molar mass
 //
-//unit Gram_Mole "g/mol" = Gram / Mole | Gram_Meter3 * Meter3_Mole;
-//unit Microgram_Mole "\u03BCg/mol" "mcg/mol" = Microgram / Mole | Microgram_Meter3 * Meter3_Mole | 1.0e6 * Gram_Mole;
+unit Gram_Mole "g/mol" = Gram / Mole | Gram_Meter3 * Meter3_Mole;
+unit Microgram_Mole "\u03BCg/mol" "mcg/mol" = Microgram / Mole | Microgram_Meter3 * Meter3_Mole | 1.0e6 * Gram_Mole;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //      Force
 //
-unit Newton "N" = Kilogram * Meter_Sec2;
+//unit Newton "N" = Kilogram * Meter_Sec2;
 //unit KilogramForce "kgf" = Newton / 9.80665;
 //unit PoundForce "lbf" = Newton / 4.4482216152605;
 //unit Poundal "pdl" = Newton / 0.138254954376;
@@ -325,7 +325,7 @@ unit Newton "N" = Kilogram * Meter_Sec2;
 //
 //      Energy
 //
-unit Joule "J" = Newton * Meter /* | Kilogram * Meter2_Sec2 */;
+//unit Joule "J" = Newton * Meter | Kilogram * Meter2_Sec2;
 //unit /* international */ Calorie "cal" = Joule / 4.1868;
 //unit /* international */ BTU "btu" = Joule / 1055.05585262;
 //unit KiloWattHour "kWh" = Joule / 3.6e6;
@@ -370,7 +370,7 @@ unit Joule "J" = Newton * Meter /* | Kilogram * Meter2_Sec2 */;
 //          NewtonMeter.Sense == Joule.Sense
 //          NewtonMeter.Family != Joule.Family
 //
-unit NewtonMeter "N\u00B7m" "N*m" = Newton ^ Meter;
+//unit NewtonMeter "N\u00B7m" "N*m" = Newton ^ Meter;
 //unit DyneCentimeter "dyn\u00B7cm" "dyn*cm" = Dyne ^ Centimeter | NewtonMeter * 1.0e7;
 //unit PoundFoot "lbf\u00B7ft" "lbf*ft" = PoundForce ^ Foot | NewtonMeter * (100/2.54/12/4.4482216152605);
 //unit PoundInch "lbf\u00B7in" "lbf*in" = PoundForce ^ Inch | NewtonMeter * (100/2.54/4.4482216152605);
@@ -450,7 +450,7 @@ unit NewtonMeter "N\u00B7m" "N*m" = Newton ^ Meter;
 //
 //       Electric conductance
 //
-//unit Siemens "S" = Ampere / Volt;
+// unit Siemens "S" = Ampere / Volt;
 //
 //       NOTE: should the above definition specify also the formula: 1 / Ohm,
 //       then the following operators would be also generated (in Siemens.cs file):
@@ -485,3 +485,16 @@ unit NewtonMeter "N\u00B7m" "N*m" = Newton ^ Meter;
 //
 //unit Weber "Wb" = Joule / Ampere | Volt * Second;
 //unit Maxwell "Mx" = 1.0e8 * Weber;
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//      Vehicle Emission Strength (CALINE3)
+//
+unit Microgram_MeterSec "\u03BCg/(m*s)" "mcg/(m*s)" = Microgram_Meter / Second | Microgram_Meter * Hertz | Microgram_Meter3 * Meter2_Sec;
+unit Gram_MileHour "g/(mi*h)" = Gram_Mile * Event_Hour;
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//      Parts per Million - dimensionless (CALINE3)
+//
+unit PPM "ppm" = 1.0e6 * <>;
