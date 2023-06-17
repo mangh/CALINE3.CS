@@ -302,8 +302,6 @@ node_modules/
 *.dsp
 
 # Visual Studio 6 technical files
-*.ncb
-*.aps
 
 # Visual Studio LightSwitch build output
 **/*.HTMLClient/GeneratedArtifacts
@@ -396,3 +394,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# CALINE3 auxiliary files
+/Metrology/Templates/Aliases.inc
+/Metrology/Templates/generator_report.txt
