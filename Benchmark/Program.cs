@@ -90,38 +90,20 @@ LINK F              BR  -100.   200.  -100.  -200.   5000. 50. 6.1 27.
 }
 
 /*
- * SAMPLE RESULTS:
+ * SAMPLE RESULTS (DIMESIONAL_ANALYSIS = OFF) ***********************************
  * 
- * BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19043.1348 (21H1/May2021Update)
- * Intel Core i5-3360M CPU 2.80GHz (Ivy Bridge), 1 CPU, 4 logical and 2 physical cores
- * .NET SDK=6.0.100
- *   [Host]     : .NET 6.0.0 (6.0.21.52210), X64 RyuJIT
- *   DefaultJob : .NET 6.0.0 (6.0.21.52210), X64 RyuJIT
+ * BenchmarkDotNet=v0.13.5, OS=Windows 11 (10.0.22621.1848/22H2/2022Update/SunValley2)
+ * 11th Gen Intel Core i7-1165G7 2.80GHz, 1 CPU, 8 logical and 4 physical cores
+ * .NET SDK=7.0.304
+ *   [Host]     : .NET 7.0.7 (7.0.723.27404), X64 RyuJIT AVX2
+ *   DefaultJob : .NET 7.0.7 (7.0.723.27404), X64 RyuJIT AVX2
  * 
- * +--- Summary (DIMESIONAL_ANALYSIS = OFF) --------------------------+
- * |                                                                  |
  * |  Method | DimensionalAnalysis |     Mean |     Error |    StdDev |
  * |-------- |-------------------- |---------:|----------:|----------:|
- * | CALINE3 |                 Off | 2.177 ms | 0.0134 ms | 0.0112 ms |
+ * | CALINE3 |                 Off | 1.109 ms | 0.0118 ms | 0.0110 ms |
  * 
  * Outliers
- *   Sample.CALINE3: Default -> 2 outliers were removed, 3 outliers were detected (2.15 ms, 2.21 ms, 2.30 ms)
- * 
- * Run time: 00:00:18 (18.98 sec), executed benchmarks: 1
- * Global total time: 00:00:41 (41.44 sec), executed benchmarks: 1
- * 
- * 
- * +--- Summary (DIMESIONAL_ANALYSIS = ON) ---------------------------+
- * |                                                                  |
- * |  Method | DimensionalAnalysis |     Mean |     Error |    StdDev |
- * |-------- |-------------------- |---------:|----------:|----------:|
- * | CALINE3 |                  On | 2.701 ms | 0.0300 ms | 0.0251 ms |
- * 
- * Outliers
- *   Sample.CALINE3: Default -> 2 outliers were removed (2.78 ms, 2.89 ms)
- * 
- * Run time: 00:00:18 (18.2 sec), executed benchmarks: 1
- * Global total time: 00:00:39 (39.92 sec), executed benchmarks: 1 * 
+ *   Sample.CALINE3: Default -> 1 outlier  was  detected (1.08 ms)
  * 
  * Legends
  *   DimensionalAnalysis : Value of the 'DimensionalAnalysis' parameter
@@ -130,4 +112,40 @@ LINK F              BR  -100.   200.  -100.  -200.   5000. 50. 6.1 27.
  *   StdDev              : Standard deviation of all measurements
  *   1 ms                : 1 Millisecond (0.001 sec)
  * 
- */ 
+ * Run time: 00:00:14 (14.2 sec), executed benchmarks: 1
+ * Global total time: 00:00:19 (19.69 sec), executed benchmarks: 1
+ * 
+ * 
+ * 
+ * SAMPLE RESULTS (DIMESIONAL_ANALYSIS = ON) ***********************************
+ * 
+ * BenchmarkDotNet=v0.13.5, OS=Windows 11 (10.0.22621.1848/22H2/2022Update/SunValley2)
+ * 11th Gen Intel Core i7-1165G7 2.80GHz, 1 CPU, 8 logical and 4 physical cores
+ * .NET SDK=7.0.304
+ *   [Host]     : .NET 7.0.7 (7.0.723.27404), X64 RyuJIT AVX2
+ *   DefaultJob : .NET 7.0.7 (7.0.723.27404), X64 RyuJIT AVX2
+ * 
+ * 
+ * |  Method | DimensionalAnalysis |     Mean |     Error |    StdDev |
+ * |-------- |-------------------- |---------:|----------:|----------:|
+ * | CALINE3 |                  On | 1.244 ms | 0.0208 ms | 0.0194 ms |
+ * 
+ * Legends
+ *   DimensionalAnalysis : Value of the 'DimensionalAnalysis' parameter
+ *   Mean                : Arithmetic mean of all measurements
+ *   Error               : Half of 99.9% confidence interval
+ *   StdDev              : Standard deviation of all measurements
+ *   1 ms                : 1 Millisecond (0.001 sec)
+ * 
+ * Run time: 00:00:17 (17.15 sec), executed benchmarks: 1
+ * Global total time: 00:00:22 (22.22 sec), executed benchmarks: 1
+ * 
+ * PERFORMANCE RATIO ***********************************************************
+ *
+ *   1.244 ms (dimesional analysis ON)
+ *   ---------------------------------- ≈ 1,12
+ *   1.109 ms (dimesional analysis OFF)
+ *
+ * *****************************************************************************
+ * 
+ */
