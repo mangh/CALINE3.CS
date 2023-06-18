@@ -12,9 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metrology", "Metrology\Metrology.csproj", "{2696F871-9E07-4C7E-8198-08497403C98E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CALINE3", "CALINE3\CALINE3.csproj", "{ADC35200-D100-4D40-BCEE-CBDAD56428CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CALINE3", "CALINE3\CALINE3.csproj", "{ADC35200-D100-4D40-BCEE-CBDAD56428CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "Benchmark\Benchmark.csproj", "{0E0F24E1-E767-4B1C-A04F-F026AB36C652}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benchmark", "Benchmark\Benchmark.csproj", "{0E0F24E1-E767-4B1C-A04F-F026AB36C652}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,9 +37,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{0E0F24E1-E767-4B1C-A04F-F026AB36C652} = {7532237D-D069-44BF-BB7D-8385C3D4CBFD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9BB92159-F7BF-4D51-BDEE-6368F4E4F57A}
