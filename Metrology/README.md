@@ -1,15 +1,16 @@
 ﻿# Metrology Sample Project
 
-The project is to build Units of Measurement class library for use in C#
-[dotnet](https://dotnet.microsoft.com/en-us/) applications. 
+A project to build _Units of Measurement_ class library for use in C#
+[dotnet](https://dotnet.microsoft.com/en-us/) applications (such as
+[CALINE3](https://github.com/mangh/CALINE3.CS/tree/main/CALINE3)). 
 
 
 ## Install project template
 
-- The project is created from the
+- To create such a project you need the
 [Mangh.Metrology.UnitsOfMeasurement](https://www.nuget.org/packages/Mangh.Metrology.UnitsOfMeasurement)
-project template ([NuGet](https://www.nuget.org/) package) that you have to
-install with the following [dotnet](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet) command:
+template ([NuGet](https://www.nuget.org/) project template package), which can be installed using
+the following [dotnet](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet) command:
 
   ```sh
   dotnet new install Mangh.Metrology.UnitsOfMeasurement
@@ -17,13 +18,29 @@ install with the following [dotnet](https://learn.microsoft.com/en-us/dotnet/cor
 
 ## Create project from the template
 
-- You can create a project from the template installed above
-(indicated in the following command by its _short name_ `unitsofmeasurement`):
+- Create a project from the template installed above
+(labeled with the _short name_ `unitsofmeasurement` in the command below):
 
   ```sh
   dotnet new unitsofmeasurement -n Metrology -o Metrology
   ```
-  This will create a project of name (-n) `Metrology` in the folder of name (-o) `Metrology`.
+  This will create a project of name (-n) `Metrology` in the folder of name (-o) `Metrology`:
+  ```sh
+  ~/CALINE3.CS/Metrology$ ll
+  
+  total 36
+  drwxr-xr-x 6 marek marek 4096 Jun 19 10:02 .
+  drwxr-xr-x 5 marek marek 4096 Jun 12 10:28 ..
+  drwxr-xr-x 2 marek marek 4096 Jun 12 09:38 Core
+  -rw-r--r-- 1 marek marek  430 Jun 12 09:52 Directory.Build.targets
+  -rw-r--r-- 1 marek marek 2901 Jun 12 09:51 Math.cs
+  -rw-r--r-- 1 marek marek 2141 Jun 12 09:54 Metrology.csproj
+  drwxr-xr-x 2 marek marek 4096 Jun 12 09:38 Parsers
+  drwxr-xr-x 2 marek marek 4096 Jun 12 09:38 RuntimeLoader
+  drwxr-xr-x 2 marek marek 4096 Jun 12 10:03 Templates
+  
+  ~/CALINE3.CS/Metrology$
+  ```
 
 - Under Visual Studio IDE, you can attach the project to a
 [Visual Studio solution](https://docs.microsoft.com/en-us/visualstudio/get-started/tutorial-projects-solutions?view=vs-2022).
@@ -33,8 +50,8 @@ install with the following [dotnet](https://learn.microsoft.com/en-us/dotnet/cor
 - Edit `Templates/definitions.txt` file to specify units of measurement required in your application(s).
 
 - You can (optionally) edit the `Templates/*.xslt` templates to customize the structures to be generated in C#:
-    - `unit.xslt`: template for a single _unit_ (struct),
-    - `scale.xslt`: template for a single _scale_ (struct),
+    - `unit.xslt`: template for a single _unit_ (partial struct),
+    - `scale.xslt`: template for a single _scale_ (partial struct),
     - `catalog.xslt`: template for a _Catalog_ class (catalog of all defined units and scales),
     - `aliases.xslt`: template for _Aliases.inc_ file (that may be used to import defined unit and scale types to dependent projects),
     - `report.xslt`: template for _generator_report.txt_ file (a summary of generated units and scales).
