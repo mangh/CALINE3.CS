@@ -38,10 +38,12 @@ namespace CALINE3
         #region Constants
         public static readonly Meter MIN_HEIGHT = (Meter)(-10.0);
         public static readonly Meter MAX_HEIGHT = (Meter)10.0;
+        public static readonly Meter HEIGHT_UNIT = (Meter)1.0;
 
         public static readonly Meter MAX_LENGTH = (Meter)10000.0;
+        public static readonly Meter MIN_LENGTH = (Meter)1.0;
 
-        public static readonly Meter DEPRESSED_SECTION_BOUNDARY = (Meter)(-1.5);
+        public static readonly Meter DEPRESSED_SECTION_DEPTH_THRESHOLD = (Meter)(-1.5);
 
         /// <value>Link tags</value>
         private static readonly string[] TAG =
@@ -163,13 +165,18 @@ namespace CALINE3
             W2 = WL / 2.0;
 
             // Adjustments for a depressed section:
-            if (HL < DEPRESSED_SECTION_BOUNDARY)
+            if (HL < DEPRESSED_SECTION_DEPTH_THRESHOLD)
             {
                 // For depressed sections greater than 1.5 meters deep, CALINE3 increases the
                 // residence time within the mixing zone by the following empirically derived
                 // factor based on Los Angeles data:
                 HDS = HL;
-                DSTR = 0.72 * Pow(Abs(HDS), 0.83);
+
+                // Note: another power-law formula to approximate empirical data.
+                // Unlike dispersion formulas, it has to return dimensionless result
+                // for an input in [meters]: that is why it divides HDS / HEIGHT_UNIT
+                // to get dimensionless argument required in the standard Pow() function:
+                DSTR = 0.72 * Pow(Abs(HDS / HEIGHT_UNIT), 0.83);
             }
             else
             {
@@ -236,12 +243,11 @@ namespace CALINE3
         }
 
         /// <summary>
-        /// Depressed section factor for a receptor at the distance <paramref name="D"/>.
+        /// Returns depressed section factor for a receptor at the distance <paramref name="D"/>.
         /// </summary>
         /// <param name="D">receptor-link distance</param>
-        /// <returns>Depressed section factor.</returns>
         public double DepressedSectionFactor(Meter D) =>
-            ((HDS >= DEPRESSED_SECTION_BOUNDARY) || (Abs(D) >= (W2 - 3.0 * HDS))) ? 1.0 :
+            ((HDS >= DEPRESSED_SECTION_DEPTH_THRESHOLD) || (Abs(D) >= (W2 - 3.0 * HDS))) ? 1.0 :
                 (Abs(D) <= W2) ? DSTR : DSTR - (DSTR - 1.0) * (Abs(D) - W2) / (-3.0 * HDS);
 
         #endregion
@@ -276,12 +282,12 @@ namespace CALINE3
             string _Efl(Gram_Mile q) =>     q.ToString(eflFormat);
             string _Size(Meter q) =>        q.ToString(sizeFormat);
 #else
-            string _Coord(Meter q) => Metrology.Meter.String(q, coordFormat);
-            string _Length(Meter q) => Metrology.Meter.String(q, lengthFormat);
-            string _Brg(Degree q) => Metrology.Degree.String(q, brgFormat);
-            string _Vphl(Event_Hour q) => Metrology.Event_Hour.String(q, vphlFormat);
-            string _Efl(Gram_Mile q) => Metrology.Gram_Mile.String(q, eflFormat);
-            string _Size(Meter q) => Metrology.Meter.String(q, sizeFormat);
+            string _Coord(Meter q) =>       Metrology.Meter.String(q, coordFormat);
+            string _Length(Meter q) =>      Metrology.Meter.String(q, lengthFormat);
+            string _Brg(Degree q) =>        Metrology.Degree.String(q, brgFormat);
+            string _Vphl(Event_Hour q) =>   Metrology.Event_Hour.String(q, vphlFormat);
+            string _Efl(Gram_Mile q) =>     Metrology.Gram_Mile.String(q, eflFormat);
+            string _Size(Meter q) =>        Metrology.Meter.String(q, sizeFormat);
 #endif
         }
         #endregion

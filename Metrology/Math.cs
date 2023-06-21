@@ -12,13 +12,12 @@
 
 namespace Metrology
 {
+    /// <summary>
+    /// Math methods supporting the Metrology (units of measurement) library.
+    /// </summary>
     public static class Math
     {
-        #region Constants
-        public static readonly Radian PI = (Radian)System.Math.PI;
-        #endregion
-
-        #region Metrology Math (natural)
+        #region Math methods that take arguments or return value of Unit of Measurement type.
         public static double Sin(Radian angle) => System.Math.Sin(angle.Value);
         public static double Cos(Radian angle) => System.Math.Cos(angle.Value);
         public static Radian Atan(double x) => new(System.Math.Atan(x));
@@ -26,24 +25,28 @@ namespace Metrology
         public static Meter Abs(Meter d) => new(System.Math.Abs(d.Value));
         public static Meter Sqrt(Meter2 area) => new(System.Math.Sqrt(area.Value));
         public static PPM Round(PPM ppm, int digits) => new(System.Math.Round(ppm.Value, digits));
-        #endregion
 
-        #region Metrology Math (hacks to cope with dimensionality in CALINE3 power-law formulas).
         /// <summary>
-        /// Power of the length specified in <see cref="Meter"/> unit.
+        /// Exponentiation used in power-law formulas for dispersion parameters.
         /// </summary>
-        /// <param name="length">length [m].</param>
-        /// <param name="y">exponent (dimensionless)</param>
-        /// <returns>the power of the specified length as a dimensionless number (i.e. w/o any unit).</returns>
-        /// <remarks>
-        /// NOTE: the method is dimensionally safe on the input but questionable
-        /// on the output: the result has no (dimensional) relationship with the
-        /// input unit <see cref="Meter"/>; there is a risk of using it in a wrong context.
+        /// <param name="x">Length or distance [m].</param>
+        /// <param name="b">Exponent [dimensionless].</param>
+        /// <returns>
+        /// Length (<paramref name="x"/>) raised to the power of <paramref name="b"/>
+        /// (i.e. <paramref name="x"/>^<paramref name="b"/>), but the result is expressed in [m]!
+        /// </returns>
+        /// <remarks>NOTE: The function is intended to remedy dimensional inconsistency<br/>
+        /// in power-law formulas of the form:
+        /// <code>
+        /// σ[m] = a * (x[m])^b  // a, b - constants</code>
+        /// This formula is an analytical approximation of the plot of experimental data.<br/>
+        /// It is assumed to return a result in [m] for the distance argument (<paramref name="x"/>) in [m],<br/>
+        /// although such a dimensional relationship cannot be derived from<br/> the formula (unless b = 1)!
         /// </remarks>
-        public static double Pow(Meter length, double y) => System.Math.Pow(length.Value, y);
+        public static Meter Pow(Meter x, double b) => new(System.Math.Pow(x.Value, b));
         #endregion
 
-        #region Some standard Math
+        #region Standard math methods (not related to units, but still required within the Unit of Measurement namespace).
         public static double Abs(double x) => System.Math.Abs(x);
         public static double Log(double x) => System.Math.Log(x);
         public static double Exp(double x) => System.Math.Exp(x);

@@ -14,20 +14,22 @@
 
 ********************************************************************************/
 
+using static CALINE3.Euclid2D;
+
 namespace CALINE3
 {
     /*
-     * Algorithms in this module make use of the power-law formula:
+     * Algorithms in this module make use of the power-law formulas:
      * 
      *    σy[m] = a * (x[m])^b  (horizontal dispersion parameter)
      *    σz[m] = c * (x[m])^d  (vertical dispersion parameter)
      * 
      *    a, b, c, d - constants dependent on stability class
      * 
-     * which is an analytical approximation of the plot of experimental data.
-     * The formula is assumed to give results (σy, σz) in [m] for the distance
+     * which are analytical approximation of the plot of experimental data.
+     * These formulas are assumed to give results (σy, σz) in [m] for the distance
      * argument (x) in [m] although such a relationship cannot be derived from
-     * the formula! This may be the source of dimensional inconsistencies!
+     * the formulas! This may be the source of dimensional inconsistencies!
      *
      * The time averaging and surface roughness corrections applied here - both
      * dimensionally unclear - give rise to further issues.
@@ -40,41 +42,38 @@ namespace CALINE3
      * 
      */
 
+    /// <summary>
+    /// Gaussian Plume.
+    /// </summary>
     public class Plume
     {
         #region Constants
-        public static readonly Meter_Sec ZERO_VELOCITY = (Meter_Sec)0.0;
+        private static readonly Microgram_Meter3 ZERO_CONCENTRATION = (Microgram_Meter3)0.0;
+        private static readonly Meter_Sec ZERO_VELOCITY = (Meter_Sec)0.0;
+        private static readonly Meter ZERO_POSITION = (Meter)0.0;
+        private static readonly Meter MAX_MIXH = (Meter)1000.0;
         #endregion
 
         #region Power-curve coefficients & Gaussian plume dispersion parameters
         /// <summary>
         /// Coefficient "a" in the power-curve formula: &#963;y[m] = a * (distance[m])^b.
         /// </summary>
-        public Meter PY1;
+        private readonly double PY1;
 
         /// <summary>
         /// Coefficient "b" in the power-curve formula: &#963;y[m] = a * (distance[m])^b.
         /// </summary>
-        public double PY2;
+        private readonly double PY2;
 
         /// <summary>
         /// Coefficient "c" in power-curve formula: &#963;z[m] = c * (distance[m])^d.
         /// </summary>
-        public Meter PZ1;
+        private readonly double PZ1;
 
         /// <summary>
         /// Coefficient "d" in the power-curve formula: &#963;z[m] = c * (distance[m])^d.
         /// </summary>
-        public double PZ2;
-
-        /// <summary>&#963;y - horizontal dispersion parameter [m].</summary>
-        private Meter SGY;
-
-        /// <summary>&#963;z - vertical dispersion parameter [m].</summary>
-        private Meter SGZ;
-
-        /// <summary>Vertical diffusivity estimate [m2/s].</summary>
-        private Meter2_Sec KZ;
+        private readonly double PZ2;
         #endregion
 
         #region Environmental conditions
@@ -82,27 +81,28 @@ namespace CALINE3
         private readonly Job _site;
 
         /// <summary><see cref="Meteo"/> conditions.</summary>
-        private readonly Meteo _met;
+        private readonly Meteo _meteo;
 
-        /// <summary>
-        /// Active link (the plume/pollution source) i.e. a <see cref="Link"/> 
-        /// under the influence of <see cref="Meteo"/> conditions.
-        /// </summary>
-        private readonly LinkActive _active;
+        /// <summary>Link (pollutant source) parameters.</summary>
+        private readonly Link _link;
+
+        /// <summary>Wind flow geometry.</summary>
+        private readonly WindFlow _flow;
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Plume constructor.
+        /// <see cref="Plume"/> constructor.
         /// </summary>
-        /// <param name="site"></param>
-        /// <param name="met"></param>
-        /// <param name="link"></param>
-        public Plume(Job site, Meteo met, Link link)
+        /// <param name="site">Site (location) factors.</param>
+        /// <param name="meteo">Meteo conditions.</param>
+        /// <param name="link">Link (pollutant source) parameters.</param>
+        public Plume(Job site, Meteo meteo, Link link)
         {
             _site = site;
-            _met = met;
-            _active = new(met, link);
+            _meteo = meteo;
+            _link = link;
+            _flow = new(meteo, link);
 
             /***************************************
              * 
@@ -114,28 +114,37 @@ namespace CALINE3
              */
 
             // σy(1[m]) = a-coefficient [m]
-            PY1 = (Meter)_met.AY1 * _site.RFAC_3CM_02 * _site.AFAC_3MIN_02;
+            PY1 = _meteo.AY1 * _site.RFAC_3CM_02 * _site.AFAC_3MIN_02;
 
             // σy(10000[m])
-            Meter PY10 = (Meter)_met.AY2 * _site.RFAC_3CM_007 * _site.AFAC_3MIN_02;
+            double PY10 = _meteo.AY2 * _site.RFAC_3CM_007 * _site.AFAC_3MIN_02;
 
             // b-coefficient [dimensionless]
-            PY2 = Log(PY10 / PY1) / Log(Link.MAX_LENGTH / (Meter)1.0);
+            PY2 = Log(PY10 / PY1) / Log(Link.MAX_LENGTH / Link.MIN_LENGTH);
 
             /***************************************
              * 
-             * To relate SGZI (σz initial vertical dispersion parameter) and TR
-             * (mixing zone residence time) the following equation:
+             * Mixing zone residence time [s]:
+             * 
+             */
+
+            Second TR = link.DSTR * link.W2 / meteo.U;
+
+            /***************************************
+             * 
+             * To relate SGZI (σz initial vertical dispersion parameter) and
+             * TR (mixing zone residence time) the following equation:
              * 
              *      SGZI[m] = 1.8[?] + 0.11[?] * TR[s]
              * 
              * has been derived from the General Motors Data Base.
              * 
              * NOTE THE MISSING UNITS [?].
+             * 
+             * I guess it should be like this:
              */
 
-            // I guess it should be like this:
-            Meter SGZI = (Meter)1.8 + (Meter_Sec)0.11 * _active.TR;
+            Meter SGZI = (Meter)1.8 + (Meter_Sec)0.11 * TR;
 
             // SGZI need to be adjusted for the averaging time (but it is considered
             // to be independent of surface roughness and atmospheric stability class).
@@ -144,7 +153,7 @@ namespace CALINE3
             Meter SGZ1 = SGZI * _site.AFAC_30MIN_02;
 
             // σz(10000[m]) adjusted for roughness and averaging time:
-            Meter SZ10 = (Meter)_met.AZ * _site.RFAC_10CM_007 * _site.AFAC_3MIN_02;
+            Meter SZ10 = (Meter)_meteo.AZ * _site.RFAC_10CM_007 * _site.AFAC_3MIN_02;
 
             /***************************************
              * 
@@ -165,10 +174,10 @@ namespace CALINE3
              */
 
             // d-coefficient [dimesionless]
-            PZ2 = Log(SZ10 / SGZ1) / Log(Link.MAX_LENGTH / _active.link.W2);
+            PZ2 = Log(SZ10 / SGZ1) / Log(Link.MAX_LENGTH / _link.W2);
 
             // c-coefficient [m]
-            PZ1 = Sqrt(SZ10 * SGZ1) / Pow(Sqrt(Link.MAX_LENGTH * _active.link.W2), PZ2);
+            PZ1 = Sqrt(SZ10 * SGZ1) / Pow(Sqrt(Link.MAX_LENGTH * _link.W2), PZ2);
         }
         #endregion
 
@@ -183,24 +192,50 @@ namespace CALINE3
             // D - distance (perpendicular to the link)
             // L - offset (parallel to the link, relative to its start position)
             // Z - level (adjusted for the link type)
-            (Meter D, Meter L, Meter Z) = _active.link.TransformReceptorCoordinates(receptor);
+            (Meter D, Meter L, Meter Z) = _link.TransformReceptorCoordinates(receptor);
 
-            // Assuming point 0 at the receptor orthogonal projection on link line:
-            Meter DWL = -(_active.link.LL + L);
+            // Assuming 0 at the orthogonal projection point
+            // of the receptor on the link line:
+            Meter DWL = -(_link.LL + L);
             Meter UWL = -L;
 
             // Mass Concentration
-            Microgram_Meter3 C = (Microgram_Meter3)0.0;
+            Microgram_Meter3 C = ZERO_CONCENTRATION;
 
-            foreach (LinkElement elem in _active.UpwindElements(DWL, UWL))
+            // Add up the concentrations from the UPWIND elements:
+            for (Meter elemEnd = ZERO_POSITION, EL = _link.WL; elemEnd < UWL; EL *= _flow.BASE)
             {
-                C += ConcentrationFrom(elem, D, Z);
+                // Next element
+                Meter elemStart = elemEnd;
+                elemEnd += EL;
+                // Any element reached?
+                if (elemEnd > DWL)
+                {
+                    LinkElement elem = new(_link, _flow,
+                        ED1: (elemStart < DWL) ? DWL : elemStart,
+                        ED2: (elemEnd > UWL) ? UWL : elemEnd
+                    );
+                    C += ConcentrationFrom(elem, D, Z);
+                }
             }
 
-            foreach (LinkElement elem in _active.DownwindElements(DWL, UWL))
+            // Add up the concentrations from the DOWNWIND elements:
+            for (Meter elemStart = ZERO_POSITION, EL = _link.WL; elemStart > DWL; EL *= _flow.BASE)
             {
-                C += ConcentrationFrom(elem, D, Z);
+                // Next element
+                Meter elemEnd = elemStart;
+                elemStart -= EL;
+                // Any element reached?
+                if (elemStart < UWL)
+                {
+                    LinkElement elem = new(_link, _flow,
+                        ED1: (elemStart < DWL) ? DWL : elemStart,
+                        ED2: (elemEnd > UWL) ? UWL : elemEnd
+                    );
+                    C += ConcentrationFrom(elem, D, Z);
+                }
             }
+
             return C;
         }
 
@@ -220,47 +255,47 @@ namespace CALINE3
             //    FET - element fetch [m]
             if (!element.GetProfile(D, out Microgram_MeterSec QE, out Meter YE, out Meter FET))
             {
-                return (Microgram_Meter3)0.0;  // Element does NOT contribute.
+                return ZERO_CONCENTRATION;  // Element does NOT contribute.
             }
 
-            // σy - horizontal standard deviation of the emission distribution:
-            SGY = PY1 * Pow(FET, PY2);
+            // σy [m] - horizontal standard deviation of the emission distribution:
+            Meter SGY = PY1 * Pow(FET, PY2);
 
-            // σz - vertical standard deviation of the emission distribution:
-            SGZ = PZ1 * Pow(FET, PZ2);
+            // σz [m] - vertical standard deviation of the emission distribution:
+            Meter SGZ = PZ1 * Pow(FET, PZ2);
 
-            // Vertical diffusivity:
-            KZ = SGZ * SGZ / (2.0 * FET / _met.U);
+            // Vertical diffusivity estimate [m2/s]:
+            Meter2_Sec KZ = SGZ * SGZ / (2.0 * FET / _meteo.U);
 
-            Microgram_Meter3 FACT =
-                element.SourceStrength(QE, SGY, YE) / (Const.SQRT_2PI * SGZ * _met.U);
+            Microgram_Meter3 FACT = 
+                element.SourceStrength(QE, SGY, YE) / (SQRT_2PI * SGZ * _meteo.U);
 
             // Adjust for depressed section wind speed
-            FACT *= _active.link.DepressedSectionFactor(D);
+            FACT *= _link.DepressedSectionFactor(D);
 
             // Deposition correction
-            double FAC3 = DepositionFactor(Z, _active.link.H, _site.V1);
+            double FAC3 = DepositionFactor(SGZ, KZ, Z, _link.H, _site.V1);
             if (double.IsNaN(FAC3))
             {
-                return (Microgram_Meter3)0.0;
+                return ZERO_CONCENTRATION;
             }
             else
             {
                 // Settling correction
-                FACT *= SettlingFactor(Z, _active.link.H, _site.VS);
+                FACT *= SettlingFactor(SGZ, KZ, Z, _link.H, _site.VS);
 
                 // Incremental concentration from the element
-                double FAC5 = GaussianFactor(Z, _active.link.H, _met.MIXH);
+                double FAC5 = GaussianFactor(SGZ, Z, _link.H, _meteo.MIXH);
                 return FACT * (FAC5 - FAC3);
             }
         }
 
-        private double DepositionFactor(Meter Z, Meter H, Meter_Sec V1)
+        private static double DepositionFactor(Meter SGZ, Meter2_Sec KZ, Meter Z, Meter H, Meter_Sec V1)
         {
             double FAC3 = 0.0;
             if (V1 != ZERO_VELOCITY)
             {
-                double ARG = (V1 * SGZ / KZ + (Z + H) / SGZ) / Const.SQRT_2;
+                double ARG = (V1 * SGZ / KZ + (Z + H) / SGZ) / SQRT_2;
                 if (ARG > 5.0)
                 {
                     FAC3 = double.NaN;
@@ -268,7 +303,7 @@ namespace CALINE3
                 else
                 {
                     FAC3 =
-                        Const.SQRT_2PI * V1 * SGZ
+                        SQRT_2PI * V1 * SGZ
                         * Exp(V1 * (Z + H) / KZ + 0.5 * (V1 * SGZ / KZ) * (V1 * SGZ / KZ))
                         * Statistics.Erf(ARG)
                         / KZ;
@@ -279,12 +314,13 @@ namespace CALINE3
             return FAC3;
         }
 
-        private double SettlingFactor(Meter Z, Meter H, Meter_Sec VS)
+        private static double SettlingFactor(Meter SGZ, Meter2_Sec KZ, Meter Z, Meter H, Meter_Sec VS)
         {
-            return (VS == ZERO_VELOCITY) ? 1.0 : System.Math.Exp(-VS * (Z - H) / (2.0 * KZ) - (VS * SGZ / KZ) * (VS * SGZ / KZ) / 8.0);
+            return (VS == ZERO_VELOCITY) ? 1.0 :
+                Exp(-VS * (Z - H) / (2.0 * KZ) - (VS * SGZ / KZ) * (VS * SGZ / KZ) / 8.0);
         }
 
-        private double GaussianFactor(Meter Z, Meter H, Meter MIXH)
+        private static double GaussianFactor(Meter SGZ, Meter Z, Meter H, Meter MIXH)
         {
             double FAC5 = 0.0;
             double CNT = 0.0;
@@ -299,8 +335,8 @@ namespace CALINE3
 
                 FAC5 += EXP1 + EXP2;
 
-                if (MIXH >= (Meter)1000.0)
-                    break;  // Bypass mixing height calculation
+                if (MIXH >= MAX_MIXH)
+                    break;
 
                 if (((EXP1 + EXP2 + EXLS) == 0.0) && (CNT <= 0.0))
                     break;

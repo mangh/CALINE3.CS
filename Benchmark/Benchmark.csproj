@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -17,17 +17,16 @@
 
   <ItemGroup>
     <Compile Include="..\CALINE3\Aliases.cs" Link="Aliases.cs" />
-    <Compile Include="..\CALINE3\Const.cs" Link="Const.cs" />
     <Compile Include="..\CALINE3\Euclid2D.cs" Link="Euclid2D.cs" />
     <Compile Include="..\CALINE3\Job.cs" Link="Job.cs" />
     <Compile Include="..\CALINE3\JobReader.cs" Link="JobReader.cs" />
     <Compile Include="..\CALINE3\Link.cs" Link="Link.cs" />
-    <Compile Include="..\CALINE3\LinkActive.cs" Link="LinkActive.cs" />
     <Compile Include="..\CALINE3\LinkElement.cs" Link="LinkElement.cs" />
     <Compile Include="..\CALINE3\Meteo.cs" Link="Meteo.cs" />
     <Compile Include="..\CALINE3\Plume.cs" Link="Plume.cs" />
     <Compile Include="..\CALINE3\Receptor.cs" Link="Receptor.cs" />
     <Compile Include="..\CALINE3\Statistics.cs" Link="Statistics.cs" />
+    <Compile Include="..\CALINE3\WindFlow.cs" Link="WindFlow.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,8 +14,6 @@
 
 ********************************************************************************/
 
-using System.Numerics;
-
 namespace CALINE3
 {
     class Program
@@ -29,7 +27,7 @@ namespace CALINE3
                 return 1;
             }
 
-            System.Threading.Thread.CurrentThread.CurrentCulture =
+            System.Threading.Thread.CurrentThread.CurrentCulture = 
                 System.Globalization.CultureInfo.InvariantCulture;
 
             using (System.IO.StreamReader input = new(args[0]))

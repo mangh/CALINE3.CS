@@ -58,7 +58,7 @@ namespace CALINE3
         private static readonly Meter3_Mole MOVL = (Meter3_Mole)0.0245;
 
         /// <summary>
-        /// PPM factor [µg/m3] to convert concentration from [µg/m3] to [ppm]. 
+        /// [µg/m3] to [ppm] unit conversion factor. 
         /// </summary>
         private static readonly Microgram_Meter3 FPPM =
 #if DIMENSIONAL_ANALYSIS
@@ -148,15 +148,14 @@ namespace CALINE3
         }
 
         /// <summary>
-        /// Computes a fraction (share) of a concentration.
+        /// Returns a fraction of the concentration (in [ppm] unit).
         /// </summary>
-        /// <param name="mc">mass concentration [µg/m3].</param>
-        /// <returns>fraction in [ppm] of the given concentration.</returns>
-        static PPM ConcentrationFraction(Microgram_Meter3 mc) =>
+        /// <param name="mc">Mass concentration [µg/m3].</param>
+        private static PPM ToPPM(Microgram_Meter3 mc) =>
 #if DIMENSIONAL_ANALYSIS
-            Round(PPM.From(mc / FPPM), 1);
+            Round(PPM.From(new Ratio(mc / FPPM)), 1);
 #else
-            Round(Metrology.PPM.FromFraction(mc / FPPM), 1);
+            Round(Metrology.PPM.FromRatio(mc / FPPM), 1);
 #endif
 
         private static PPM ReceptorTotalConcentration(Microgram_Meter3[][] MC, int R /*receptor index*/)
@@ -164,7 +163,7 @@ namespace CALINE3
             PPM CSUM = (PPM)0.0;
             for (int L = 0; L < MC.Length /*Links.Count*/; L++)
             {
-                CSUM += ConcentrationFraction(MC[L][R]);
+                CSUM += ToPPM(MC[L][R]);
             }
             return CSUM;
         }
@@ -175,7 +174,7 @@ namespace CALINE3
             string concentrations = string.Empty;
             for (int L = 0; L < MC.Length /*Links.Count*/; L++)
             {
-                concentrations += $"{_Ppm(ConcentrationFraction(MC[L][R]))}";
+                concentrations += $"{_Ppm(ToPPM(MC[L][R]))}";
             }
             return concentrations;
 
@@ -225,13 +224,13 @@ namespace CALINE3
             string _Z0(Centimeter q) =>         q.ToString(z0Format);
             string _Amb(PPM q) =>               q.ToString(ambFormat);
 #else
-            string _Msec(Meter_Sec q) => Metrology.Meter.String(q, msecFormat);
-            string _Cmsec(Centimeter_Sec q) => Metrology.Meter.String(q, cmsecFormat);
-            string _Atim(Minute q) => Metrology.Meter.String(q, atimFormat);
-            string _Mixh(Meter q) => Metrology.Meter.String(q, mixhFormat);
-            string _Brg(Degree q) => Metrology.Meter.String(q, brgFormat);
-            string _Z0(Centimeter q) => Metrology.Meter.String(q, z0Format);
-            string _Amb(PPM q) => Metrology.Meter.String(q, ambFormat);
+            string _Msec(Meter_Sec q) =>        Metrology.Meter.String(q, msecFormat);
+            string _Cmsec(Centimeter_Sec q) =>  Metrology.Meter.String(q, cmsecFormat);
+            string _Atim(Minute q) =>           Metrology.Meter.String(q, atimFormat);
+            string _Mixh(Meter q) =>            Metrology.Meter.String(q, mixhFormat);
+            string _Brg(Degree q) =>            Metrology.Meter.String(q, brgFormat);
+            string _Z0(Centimeter q) =>         Metrology.Meter.String(q, z0Format);
+            string _Amb(PPM q) =>               Metrology.Meter.String(q, ambFormat);
 #endif
         }
 

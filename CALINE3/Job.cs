@@ -73,7 +73,7 @@ namespace CALINE3
         /// Deposition velocity [m/sec]
         /// i.e. the rate at which pollutant can be adsorbed or assimilated by a surface.
         /// </summary>
-        /// <remarks>If the settling velocity <see cref="VS"/> > 0, the deposition velocity should be set equal to the settling velocity.</remarks>
+        /// <remarks>If the settling velocity <see cref="VS"/> &gt; 0, the deposition velocity should be set equal to the settling velocity.</remarks>
         public readonly Meter_Sec VD;
 
         /// <summary>Deposition velocity [cm/sec] (for output, see: <see cref="VD"/>).</summary>

@@ -98,22 +98,20 @@ LINK F              BR  -100.   200.  -100.  -200.   5000. 50. 6.1 27.
  *   [Host]     : .NET 7.0.7 (7.0.723.27404), X64 RyuJIT AVX2
  *   DefaultJob : .NET 7.0.7 (7.0.723.27404), X64 RyuJIT AVX2
  * 
- * |  Method | DimensionalAnalysis |     Mean |     Error |    StdDev |
- * |-------- |-------------------- |---------:|----------:|----------:|
- * | CALINE3 |                 Off | 1.109 ms | 0.0118 ms | 0.0110 ms |
  * 
- * Outliers
- *   Sample.CALINE3: Default -> 1 outlier  was  detected (1.08 ms)
+ * |  Method | DimensionalAnalysis |     Mean |    Error |   StdDev |
+ * |-------- |-------------------- |---------:|---------:|---------:|
+ * | CALINE3 |                 Off | 849.7 μs | 14.69 μs | 13.74 μs |
  * 
- * Legends
+ * Legends *
  *   DimensionalAnalysis : Value of the 'DimensionalAnalysis' parameter
  *   Mean                : Arithmetic mean of all measurements
  *   Error               : Half of 99.9% confidence interval
  *   StdDev              : Standard deviation of all measurements
- *   1 ms                : 1 Millisecond (0.001 sec)
+ *   1 μs                : 1 Microsecond (0.000001 sec)
  * 
- * Run time: 00:00:14 (14.2 sec), executed benchmarks: 1
- * Global total time: 00:00:19 (19.69 sec), executed benchmarks: 1
+ * Run time: 00:00:22 (22.31 sec), executed benchmarks: 1
+ * Global total time: 00:00:39 (39.99 sec), executed benchmarks: 1
  * 
  * 
  * 
@@ -126,25 +124,30 @@ LINK F              BR  -100.   200.  -100.  -200.   5000. 50. 6.1 27.
  *   DefaultJob : .NET 7.0.7 (7.0.723.27404), X64 RyuJIT AVX2
  * 
  * 
- * |  Method | DimensionalAnalysis |     Mean |     Error |    StdDev |
- * |-------- |-------------------- |---------:|----------:|----------:|
- * | CALINE3 |                  On | 1.244 ms | 0.0208 ms | 0.0194 ms |
+ * |  Method | DimensionalAnalysis |     Mean |    Error |   StdDev |
+ * |-------- |-------------------- |---------:|---------:|---------:|
+ * | CALINE3 |                  On | 958.5 μs | 18.67 μs | 16.55 μs |
  * 
- * Legends
+ * * Hints *
+ * Outliers
+ *   Sample.CALINE3: Default -> 1 outlier  was  removed (1.21 ms)
+ * 
+ * Legends *
  *   DimensionalAnalysis : Value of the 'DimensionalAnalysis' parameter
  *   Mean                : Arithmetic mean of all measurements
  *   Error               : Half of 99.9% confidence interval
  *   StdDev              : Standard deviation of all measurements
- *   1 ms                : 1 Millisecond (0.001 sec)
+ *   1 μs                : 1 Microsecond (0.000001 sec)
  * 
- * Run time: 00:00:17 (17.15 sec), executed benchmarks: 1
- * Global total time: 00:00:22 (22.22 sec), executed benchmarks: 1
+ * Run time: 00:00:25 (25.27 sec), executed benchmarks: 1
+ * Global total time: 00:00:43 (43.05 sec), executed benchmarks: 1
+ * 
  * 
  * PERFORMANCE RATIO ***********************************************************
  *
- *   1.244 ms (dimesional analysis ON)
- *   ---------------------------------- ≈ 1,12
- *   1.109 ms (dimesional analysis OFF)
+ *   958.5 ms (dimesional analysis ON)
+ *   ---------------------------------- ≈ 1,13
+ *   849.7 ms (dimesional analysis OFF)
  *
  * *****************************************************************************
  * 

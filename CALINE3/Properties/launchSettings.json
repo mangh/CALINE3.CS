@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CALINE3": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\..\\..\\..\\CALINE3.EXP"
+    }
+  }
+}

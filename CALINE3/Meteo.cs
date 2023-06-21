@@ -35,6 +35,9 @@ namespace CALINE3
 
         /// <summary>Stability class tags.</summary>
         private static readonly string[] STB = { "A", "B", "C", "D", "E", "F" };
+
+        private static readonly Degree DEG_180 = (Degree)180.0;
+        private static readonly Degree DEG_360 = (Degree)360.0;
         #endregion
 
         #region Properties
@@ -106,8 +109,8 @@ namespace CALINE3
             AMB = amb;
 
             // conversion to vector orientation
-            brg += Const.DEGREE_180;
-            BRG = (brg < Const.DEGREE_360) ? brg : brg - Const.DEGREE_360;
+            brg += DEG_180;
+            BRG = (brg < DEG_360) ? brg : brg - DEG_360;
         }
         #endregion
 

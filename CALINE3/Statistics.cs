@@ -25,14 +25,15 @@ namespace CALINE3
         /// <summary>
         /// Gauss error function (maximum error: 1.5×10−7).
         /// </summary>
+        /// <param name="x">Any (positive or negative) value.</param>
+        /// <returns>
+        /// For a random variable Y that is normally distributed<br/>
+        /// with mean 0 and standard deviation 1/√2,<br/>
+        /// erf(x) is the probability that Y falls in the range [−x, x].
+        /// </returns>
         /// <remarks>
         /// See: Abramowitz and Stegun approximation in <a href="http://en.wikipedia.org/wiki/Error_function">Wikipedia</a>.
         /// </remarks>
-        /// <param name="x">Any (positive or negative) value.</param>
-        /// <returns>
-        /// for a random variable Y that is normally distributed with mean 0 and standard deviation 1/√2,
-        /// erf(x) is the probability that Y falls in the range [−x, x].
-        /// </returns>
         public static double Erf(double x)
         {
             double t = 1.0 / (1.0 + 0.3275911 * ((x < 0) ? -x : x));
