@@ -13,6 +13,10 @@
     as published at https://github.com/mangh/metrology.
 
 ********************************************************************************/
+using System;
+using System.Diagnostics;
+
+using static System.Console;
 
 namespace CALINE3
 {
@@ -22,13 +26,15 @@ namespace CALINE3
         {
             if (args.Length < 1)
             {
-                System.Console.WriteLine("Missing or invalid command line arguments");
-                System.Console.WriteLine($"Usage: {typeof(Program).Assembly.GetName().Name} /path/to/input.data");
+                WriteLine("Missing or invalid command line arguments");
+                WriteLine($"Usage: {typeof(Program).Assembly.GetName().Name} /path/to/input.data");
                 return 1;
             }
 
             System.Threading.Thread.CurrentThread.CurrentCulture = 
                 System.Globalization.CultureInfo.InvariantCulture;
+
+            TimeSpan totalElapsedTime = new(0L);
 
             using (System.IO.StreamReader input = new(args[0]))
             {
@@ -37,8 +43,12 @@ namespace CALINE3
                 Job? site;
                 while ((site = rdr.Read()) is not null)
                 {
+                    TimeSpan jobElapsedTime = new(0L);
+
                     foreach (var meteo in site.Meteos)
                     {
+                        long startTime = Stopwatch.GetTimestamp();
+
                         // Mass concentration matrix
                         Microgram_Meter3[][] MC = new Microgram_Meter3[site.Links.Count][];
 
@@ -54,10 +64,21 @@ namespace CALINE3
                                 MC[link.ORDINAL][receptor.ORDINAL] = plume.ConcentrationAt(receptor);
                             }
                         }
+
+                        jobElapsedTime += Stopwatch.GetElapsedTime(startTime);
+
                         Report.Output(site, meteo, MC);
                     }
+                    totalElapsedTime += jobElapsedTime;
+
+                    WriteLine();
+                    WriteLine($"Job computation time (excl. I/O): {jobElapsedTime.TotalMicroseconds:F0} µs :: {site.JOB} :: {site.RUN}");
+                    WriteLine();
                 }
             }
+
+            WriteLine($"Total computation time (excl. I/O): {totalElapsedTime.TotalMicroseconds:F0} µs.");
+
             return 0;
         }
     }
