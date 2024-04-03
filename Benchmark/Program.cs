@@ -97,64 +97,54 @@ LINK F              BR  -100.   200.  -100.  -200.   5000. 50. 6.1 27.
     }
 }
 
-/*
- * SAMPLE RESULTS (DIMESIONAL_ANALYSIS = OFF) ***********************************
+/* SAMPLE RESULTS (shortened)
  * 
- * BenchmarkDotNet=v0.13.5, OS=Windows 11 (10.0.22621.1992/22H2/2022Update/SunValley2)
- * 11th Gen Intel Core i7-1165G7 2.80GHz, 1 CPU, 8 logical and 4 physical cores
- * .NET SDK=7.0.306
- *   [Host]     : .NET 7.0.9 (7.0.923.32018), X64 RyuJIT AVX2
- *   DefaultJob : .NET 7.0.9 (7.0.923.32018), X64 RyuJIT AVX2
+ * *** .NET 7 ************************************************************************
  * 
- * 
- * |  Method | DimensionalAnalysis |     Mean |    Error |   StdDev |
- * |-------- |-------------------- |---------:|---------:|---------:|
- * | CALINE3 |                 Off | 862.1 μs | 16.94 μs | 18.13 μs |
- * 
- * Legends
- *   DimensionalAnalysis : Value of the 'DimensionalAnalysis' parameter
- *   Mean                : Arithmetic mean of all measurements
- *   Error               : Half of 99.9% confidence interval
- *   StdDev              : Standard deviation of all measurements
- *   1 μs                : 1 Microsecond (0.000001 sec)
- * 
- * Run time: 00:00:25 (25.91 sec), executed benchmarks: 1
- * Global total time: 00:00:43 (43.59 sec), executed benchmarks: 1
- * 
- * 
- * SAMPLE RESULTS (DIMESIONAL_ANALYSIS = ON) ***********************************
- * 
- * BenchmarkDotNet=v0.13.5, OS=Windows 11 (10.0.22621.1992/22H2/2022Update/SunValley2)
- * 11th Gen Intel Core i7-1165G7 2.80GHz, 1 CPU, 8 logical and 4 physical cores
- * .NET SDK=7.0.306
- *   [Host]     : .NET 7.0.9 (7.0.923.32018), X64 RyuJIT AVX2
- *   DefaultJob : .NET 7.0.9 (7.0.923.32018), X64 RyuJIT AVX2
+ *  BenchmarkDotNet=v0.13.5, OS=Windows 11 (10.0.22621.1992/22H2/2022Update/SunValley2)
+ *  11th Gen Intel Core i7-1165G7 2.80GHz, 1 CPU, 8 logical and 4 physical cores
+ *  .NET SDK=7.0.306
+ *    [Host]     : .NET 7.0.9 (7.0.923.32018), X64 RyuJIT AVX2
+ *    DefaultJob : .NET 7.0.9 (7.0.923.32018), X64 RyuJIT AVX2
+ *  
+ *  
+ *  |  Method | DimensionalAnalysis |     Mean |    Error |   StdDev |
+ *  |-------- |-------------------- |---------:|---------:|---------:|
+ *  | CALINE3 |                 Off | 862.1 μs | 16.94 μs | 18.13 μs |
+ *  
+ *  
+ *  |  Method | DimensionalAnalysis |     Mean |    Error |   StdDev |
+ *  |-------- |-------------------- |---------:|---------:|---------:|
+ *  | CALINE3 |                  On | 986.5 μs | 19.25 μs | 22.17 μs |
+ *  
+ *  
+ *                       986.5 μs 
+ *  PERFORMANCE RATIO = ---------- ≈ 1,14
+ *                       862.1 μs 
  * 
  * 
- * |  Method | DimensionalAnalysis |     Mean |    Error |   StdDev |
- * |-------- |-------------------- |---------:|---------:|---------:|
- * | CALINE3 |                  On | 986.5 μs | 19.25 μs | 22.17 μs |
+ * *** .NET 8 **********************************************************************
  * 
- * Outliers
- *   Sample.CALINE3: Default -> 1 outlier  was  removed (1.10 ms)
+ *  BenchmarkDotNet v0.13.12, Windows 11 (10.0.22631.3296/23H2/2023Update/SunValley3)
+ *  11th Gen Intel Core i7-1165G7 2.80GHz, 1 CPU, 8 logical and 4 physical cores
+ *  .NET SDK 8.0.202
+ *    [Host]     : .NET 8.0.3 (8.0.324.11423), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+ *    DefaultJob : .NET 8.0.3 (8.0.324.11423), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+ *  
+ *  
+ *  | Method  | DimensionalAnalysis | Mean     | Error   | StdDev  |
+ *  |-------- |-------------------- |---------:|--------:|--------:|
+ *  | CALINE3 | Off                 | 747.1 μs | 7.79 μs | 7.28 μs |
+ *  
+ *  
+ *  | Method  | DimensionalAnalysis | Mean     | Error   | StdDev  |
+ *  |-------- |-------------------- |---------:|--------:|--------:|
+ *  | CALINE3 | On                  | 812.9 μs | 5.56 μs | 5.20 μs |
+ *  
+ *  
+ *                       812.9 μs 
+ *  PERFORMANCE RATIO = ---------- ≈ 1,09
+ *                       747.1 μs 
  * 
- * Legends
- *   DimensionalAnalysis : Value of the 'DimensionalAnalysis' parameter
- *   Mean                : Arithmetic mean of all measurements
- *   Error               : Half of 99.9% confidence interval
- *   StdDev              : Standard deviation of all measurements
- *   1 μs                : 1 Microsecond (0.000001 sec)
- * 
- * Run time: 00:00:31 (31.62 sec), executed benchmarks: 1
- * Global total time: 00:00:49 (49.26 sec), executed benchmarks: 1
- * 
- * 
- * PERFORMANCE RATIO ***********************************************************
- *
- *   986.5 μs (dimesional analysis ON)
- *   ---------------------------------- ≈ 1,14
- *   862.1 μs (dimesional analysis OFF)
- *
- * *****************************************************************************
  * 
  */
