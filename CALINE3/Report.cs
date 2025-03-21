@@ -42,7 +42,7 @@ namespace CALINE3
         /// molar mass of CO = 28.010 [g/mol] that is greater than the value 28.0 [g/mol]
         /// used in the original CALINE3 application! Is that relevant?
         /// </remarks>
-        private static readonly Gram_Mole MOWT = (Gram_Mole)28.0;
+        private static readonly Gram_Mole MOWT = new(28.0);
 
         /// <summary>
         /// Molar volume of an ideal gas [m3/mol]. 
@@ -55,7 +55,7 @@ namespace CALINE3
         /// <item><description><c>0.024465403697038... [m3/mol]</c> at <c>25 °C</c>.</description></item>
         /// </list>
         /// </remarks>
-        private static readonly Meter3_Mole MOVL = (Meter3_Mole)0.0245;
+        private static readonly Meter3_Mole MOVL = new(0.0245);
 
         /// <summary>
         /// [µg/m3] to [ppm] unit conversion factor. 

@@ -14,8 +14,6 @@
 
 ********************************************************************************/
 
-using static CALINE3.Euclid2D;
-
 namespace CALINE3
 {
     /*
@@ -48,10 +46,10 @@ namespace CALINE3
     public class Plume
     {
         #region Constants
-        private static readonly Microgram_Meter3 ZERO_CONCENTRATION = (Microgram_Meter3)0.0;
-        private static readonly Meter_Sec ZERO_VELOCITY = (Meter_Sec)0.0;
-        private static readonly Meter ZERO_POSITION = (Meter)0.0;
-        private static readonly Meter MAX_MIXH = (Meter)1000.0;
+        private static readonly Microgram_Meter3 ZERO_CONCENTRATION = new(0.0);
+        private static readonly Meter_Sec ZERO_VELOCITY = new(0.0);
+        private static readonly Meter ZERO_POSITION = new(0.0);
+        private static readonly Meter MAX_MIXH = new(1000.0);
         #endregion
 
         #region Power-curve coefficients & Gaussian plume dispersion parameters
@@ -268,7 +266,7 @@ namespace CALINE3
             Meter2_Sec KZ = SGZ * SGZ / (2.0 * FET / _meteo.U);
 
             Microgram_Meter3 FACT = 
-                element.SourceStrength(QE, SGY, YE) / (SQRT_2PI * SGZ * _meteo.U);
+                element.SourceStrength(QE, SGY, YE) / (Sqrt(2.0 * System.Math.PI) * SGZ * _meteo.U);
 
             // Adjust for depressed section wind speed
             FACT *= _link.DepressedSectionFactor(D);
@@ -295,7 +293,7 @@ namespace CALINE3
             double FAC3 = 0.0;
             if (V1 != ZERO_VELOCITY)
             {
-                double ARG = (V1 * SGZ / KZ + (Z + H) / SGZ) / SQRT_2;
+                double ARG = (V1 * SGZ / KZ + (Z + H) / SGZ) / Sqrt(2.0);
                 if (ARG > 5.0)
                 {
                     FAC3 = double.NaN;
@@ -303,7 +301,7 @@ namespace CALINE3
                 else
                 {
                     FAC3 =
-                        SQRT_2PI * V1 * SGZ
+                        Sqrt(2.0 * System.Math.PI) * V1 * SGZ
                         * Exp(V1 * (Z + H) / KZ + 0.5 * (V1 * SGZ / KZ) * (V1 * SGZ / KZ))
                         * Statistics.Erf(ARG)
                         / KZ;

@@ -40,12 +40,12 @@ namespace CALINE3
     {
         #region Constants
         // Averaging times 
-        public static readonly Minute ATIM_3MIN = (Minute)3.0;
-        public static readonly Minute ATIM_30MIN = (Minute)30.0;
+        public static readonly Minute ATIM_3MIN = new(3.0);
+        public static readonly Minute ATIM_30MIN = new(30.0);
 
         // Surface roughness
-        public static readonly Centimeter Z0_3CM = (Centimeter)3.0;
-        public static readonly Centimeter Z0_10CM = (Centimeter)10.0;
+        public static readonly Centimeter Z0_3CM = new(3.0);
+        public static readonly Centimeter Z0_10CM = new(10.0);
         #endregion
 
         #region Properties
@@ -159,9 +159,9 @@ namespace CALINE3
             RFAC_3CM_007 = Pow(Z0 / Z0_3CM, 0.07);
             RFAC_10CM_007 = Pow(Z0 / Z0_10CM, 0.07);
 
-            Receptors = new List<Receptor>();
-            Links = new List<Link>();
-            Meteos = new List<Meteo>();
+            Receptors = [];
+            Links = [];
+            Meteos = [];
         }
         #endregion
 

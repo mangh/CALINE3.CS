@@ -36,8 +36,8 @@ namespace CALINE3
         /// <summary>Stability class tags.</summary>
         private static readonly string[] STB = { "A", "B", "C", "D", "E", "F" };
 
-        private static readonly Degree DEG_180 = (Degree)180.0;
-        private static readonly Degree DEG_360 = (Degree)360.0;
+        private static readonly Degree DEG_180 = new(180.0);
+        private static readonly Degree DEG_360 = new(360.0);
         #endregion
 
         #region Properties

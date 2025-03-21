@@ -14,8 +14,6 @@
 
 ********************************************************************************/
 
-using static CALINE3.Euclid2D;
-
 namespace CALINE3
 {
     /// <summary>
@@ -35,7 +33,10 @@ namespace CALINE3
         /// </summary>
         private static readonly double[] WT = { 0.25, 0.75, 1.0, 0.75, 0.25 };
 
-        private static readonly Microgram_MeterSec ZERO_STRENGTH = (Microgram_MeterSec)0.0;
+        /// <summary>
+        /// Zero source strength (from a <see cref="LinkElement"/> that makes no contribution).
+        /// </summary>
+        private static readonly Microgram_MeterSec ZERO_STRENGTH = new(0.0);
         #endregion
 
         #region Properties
@@ -164,7 +165,7 @@ namespace CALINE3
             {
                 FAC2 += QE * WT[j] *
                     /* PD = normal probability density = */
-                    (Statistics.Erf(Y[j] / SGY / SQRT_2) - Statistics.Erf(Y[j + 1] / SGY / SQRT_2)) / 2.0;
+                    (Statistics.Erf(Y[j] / SGY / Sqrt(2.0)) - Statistics.Erf(Y[j + 1] / SGY / Sqrt(2.0))) / 2.0;
             }
 
             return FAC2;

@@ -22,32 +22,53 @@ namespace CALINE3
     public class Euclid2D
     {
         #region Constants
-        public static readonly Radian PI = (Radian)System.Math.PI;
+        public static readonly Radian PI = new(System.Math.PI);
+        public static readonly Radian PI2 = 2 * PI;
         public static readonly Radian PI_2 = PI / 2.0;
-        public static readonly Radian PI3_2 = 3 * PI_2;
-        public static readonly Radian ZERO_ANGLE = (Radian)0.0;
-
-        public static readonly double SQRT_2 = Sqrt(2.0);
-        public static readonly double SQRT_2PI = Sqrt(2.0 * System.Math.PI);
+        public static readonly Radian ZERO_ANGLE = new(0.0);
         #endregion
 
         #region Methods
         /// <summary>
-        /// Clockwise angle [rad] formed by North direction (Y-axis) and vector starting from 
-        /// the point (a,b) and terminating at the point (x,y).
+        /// Clockwise angle α [rad] formed by North direction (Y-axis) and vector starting from 
+        /// the point (a,b) and terminating at the point (x,y).<br/>
         /// </summary>
+        /// <remarks>(Atan-based version)</remarks>
         /// <param name="a">X-coordinate of the start point.</param>
         /// <param name="b">Y-coordinate of the start point.</param>
         /// <param name="x">X-coordinate of the end point.</param>
         /// <param name="y">Y-coordinate of the end point.</param>
-        /// <returns>0 &#8804; angle &lt; 2&#960; [rad].</returns>
+        /// <returns>Angle: 0 &#8804; α &lt; 2&#960; [rad].</returns>
         public static Radian Azimuth(Meter a, Meter b, Meter x, Meter y)
-            =>  (x > a) ? PI_2 - Atan((y - b) / (x - a)) :
-                (x < a) ? PI3_2 - Atan((y - b) / (x - a)) :
-                (y < b) ? PI : ZERO_ANGLE;
+        {
+            Radian alpha = PI_2 - Atan((y - b) / (x - a));
+            return (x > a) ? alpha :
+                   (x < a) ? PI + alpha :
+                   (y < b) ? PI : 
+                   ZERO_ANGLE;
+        }
 
         /// <summary>
-        /// Distance between points on a 2D-plane.
+        /// Clockwise angle α [rad] formed by North direction (Y-axis) and vector starting from 
+        /// the point (a,b) and terminating at the point (x,y).<br/>
+        /// </summary>
+        /// <remarks>(Atan2-based version)</remarks>
+        /// <param name="a">X-coordinate of the start point.</param>
+        /// <param name="b">Y-coordinate of the start point.</param>
+        /// <param name="x">X-coordinate of the end point.</param>
+        /// <param name="y">Y-coordinate of the end point.</param>
+        /// <returns>Angle: 0 &#8804; α &lt; 2&#960; [rad].</returns>
+        public static Radian Azimuth2(Meter a, Meter b, Meter x, Meter y)
+        {
+            Radian alpha = PI_2 - Atan2(y - b, x - a);
+            return
+                (x < a) && (y >= b) ? PI2 + alpha :
+                (x == a) && (y == b) ? ZERO_ANGLE :
+                alpha;
+        }
+
+        /// <summary>
+        /// Distance between points (x1,y1) and (x2,y2) on the 2D-plane.
         /// </summary>
         /// <param name="x1">X-coordinate of the 1st point [m].</param>
         /// <param name="y1">Y-coordinate of the 1st point [m].</param>

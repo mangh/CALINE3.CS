@@ -11,13 +11,13 @@
     public readonly struct WindFlow
     {
         #region Constants
-        private static readonly Degree DEG_20 = (Degree)20.0;
-        private static readonly Degree DEG_70 = (Degree)70.0;
-        private static readonly Degree DEG_50 = (Degree)50.0;
-        private static readonly Degree DEG_90 = (Degree)90.0;
-        private static readonly Degree DEG_180 = (Degree)180.0;
-        private static readonly Degree DEG_270 = (Degree)270.0;
-        private static readonly Degree DEG_360 = (Degree)360.0;
+        private static readonly Degree DEG_20 = new(20.0);
+        private static readonly Degree DEG_50 = new(50.0);
+        private static readonly Degree DEG_70 = new(70.0);
+        private static readonly Degree DEG_90 = new(90.0);
+        private static readonly Degree DEG_180 = new(180.0);
+        private static readonly Degree DEG_270 = new(270.0);
+        private static readonly Degree DEG_360 = new(360.0);
         #endregion
 
         #region Properties

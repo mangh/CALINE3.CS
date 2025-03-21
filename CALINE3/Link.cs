@@ -36,14 +36,15 @@ namespace CALINE3
     public class Link
     {
         #region Constants
-        public static readonly Meter MIN_HEIGHT = (Meter)(-10.0);
-        public static readonly Meter MAX_HEIGHT = (Meter)10.0;
-        public static readonly Meter HEIGHT_UNIT = (Meter)1.0;
+        public static readonly Meter MIN_HEIGHT = new(-10.0);
+        public static readonly Meter MAX_HEIGHT = new(10.0);
 
-        public static readonly Meter MAX_LENGTH = (Meter)10000.0;
-        public static readonly Meter MIN_LENGTH = (Meter)1.0;
+        public static readonly Meter MAX_LENGTH = new(10000.0);
+        public static readonly Meter MIN_LENGTH = new(1.0);
 
-        public static readonly Meter DEPRESSED_SECTION_DEPTH_THRESHOLD = (Meter)(-1.5);
+        public static readonly Meter LENGTH_UNIT = new(1.0);
+
+        public static readonly Meter DEPRESSED_SECTION_DEPTH_THRESHOLD = new(-1.5);
 
         /// <value>Link tags</value>
         private static readonly string[] TAG =
@@ -119,7 +120,7 @@ namespace CALINE3
         /// <para>
         /// [vehicles/hr] * [g/mile/vehicle] = 
         ///      10^6/3600/1609,344 [&#956;g/(meter*sec)] =
-        ///      0,172603109 [&#956;g/(meter*sec)]
+        ///      0.172603109 [&#956;g/(meter*sec)]
         /// </para>
         /// </remarks>
         public readonly Microgram_MeterSec Q1;
@@ -172,11 +173,11 @@ namespace CALINE3
                 // factor based on Los Angeles data:
                 HDS = HL;
 
-                // Note: another power-law formula to approximate empirical data.
-                // Unlike dispersion formulas, it has to return dimensionless result
-                // for an input in [meters]: that is why it divides HDS / HEIGHT_UNIT
-                // to get dimensionless argument required in the standard Pow() function:
-                DSTR = 0.72 * Pow(Abs(HDS / HEIGHT_UNIT), 0.83);
+                // Note: another power-law formula to approximate empirical data:
+                // unlike dispersion formulas, it has to return dimensionless result
+                // for an input in [meters]; therefore, it divides HDS / LENGTH_UNIT
+                // to call the standard Math.Pow() function with a dimensionless argument:
+                DSTR = 0.72 * Pow(Abs(HDS / LENGTH_UNIT), 0.83);
             }
             else
             {
@@ -248,7 +249,8 @@ namespace CALINE3
         /// <param name="D">receptor-link distance</param>
         public double DepressedSectionFactor(Meter D) =>
             ((HDS >= DEPRESSED_SECTION_DEPTH_THRESHOLD) || (Abs(D) >= (W2 - 3.0 * HDS))) ? 1.0 :
-                (Abs(D) <= W2) ? DSTR : DSTR - (DSTR - 1.0) * (Abs(D) - W2) / (-3.0 * HDS);
+                (Abs(D) > W2) ? DSTR - (DSTR - 1.0) * (Abs(D) - W2) / (-3.0 * HDS) :
+                    DSTR;
 
         #endregion
 
