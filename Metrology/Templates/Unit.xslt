@@ -109,8 +109,7 @@ namespace <xsl:value-of select="@ns"/>
         public int /* IComparable&lt;<xsl:value-of select="@name"/>&gt; */ CompareTo(<xsl:value-of select="@name"/> other) =&gt; m_value.CompareTo(other.<xsl:value-of select="$VALUE"/>);
         #endregion
 
-        #region Arithmetic
-        // Inner:
+        #region Math (internal)
         public static <xsl:value-of select="@name"/> operator +(<xsl:value-of select="@name"/> lhs, <xsl:value-of select="@name"/> rhs) =&gt; new(lhs.<xsl:value-of select="$VALUE"/> + rhs.<xsl:value-of select="$VALUE"/>);
         public static <xsl:value-of select="@name"/> operator -(<xsl:value-of select="@name"/> lhs, <xsl:value-of select="@name"/> rhs) =&gt; new(lhs.<xsl:value-of select="$VALUE"/> - rhs.<xsl:value-of select="$VALUE"/>);
         public static <xsl:value-of select="@name"/> operator ++(<xsl:value-of select="@name"/> q) { <xsl:value-of select="$VALUE_T"/> v = q.<xsl:value-of select="$VALUE"/>; return new(++v); }
@@ -120,12 +119,19 @@ namespace <xsl:value-of select="@ns"/>
         public static <xsl:value-of select="@name"/> operator *(<xsl:value-of select="@name"/> lhs, <xsl:value-of select="$VALUE_T"/> rhs) =&gt; new(lhs.<xsl:value-of select="$VALUE"/> * rhs);
         public static <xsl:value-of select="@name"/> operator /(<xsl:value-of select="@name"/> lhs, <xsl:value-of select="$VALUE_T"/> rhs) =&gt; new(lhs.<xsl:value-of select="$VALUE"/> / rhs);
         public static <xsl:value-of select="$VALUE_T"/> operator /(<xsl:value-of select="@name"/> lhs, <xsl:value-of select="@name"/> rhs) =&gt; lhs.<xsl:value-of select="$VALUE"/> / rhs.<xsl:value-of select="$VALUE"/>;
-        <xsl:if test="count(fellow/operation)>0">
-        <xsl:text>// Outer:</xsl:text>
-        <xsl:apply-templates select="fellow/operation">
+
+        public static <xsl:value-of select="@name"/> Abs(<xsl:value-of select="@name"/> q) =&gt; new(System.Math.Abs(q.<xsl:value-of select="$VALUE"/>));
+        public static <xsl:value-of select="@name"/> Ceiling(<xsl:value-of select="@name"/> q) =&gt; new(System.Math.Ceiling(q.<xsl:value-of select="$VALUE"/>));
+        public static <xsl:value-of select="@name"/> Floor(<xsl:value-of select="@name"/> q) =&gt; new(System.Math.Floor(q.<xsl:value-of select="$VALUE"/>));
+        public static <xsl:value-of select="@name"/> Min(<xsl:value-of select="@name"/> p, <xsl:value-of select="@name"/> q) =&gt; new(System.Math.Min(p.<xsl:value-of select="$VALUE"/>, q.<xsl:value-of select="$VALUE"/>));
+        public static <xsl:value-of select="@name"/> Max(<xsl:value-of select="@name"/> p, <xsl:value-of select="@name"/> q) =&gt; new(System.Math.Max(p.<xsl:value-of select="$VALUE"/>, q.<xsl:value-of select="$VALUE"/>));
+        public static <xsl:value-of select="@name"/> Round(<xsl:value-of select="@name"/> q, int digits) =&gt; new(System.Math.Round(q.<xsl:value-of select="$VALUE"/>, digits));
+        public static <xsl:value-of select="@name"/> Truncate(<xsl:value-of select="@name"/> q) =&gt; new(System.Math.Truncate(q.<xsl:value-of select="$VALUE"/>));
+        #endregion
+        
+        #region Math (external)<xsl:apply-templates select="fellow/operation">
           <xsl:with-param name="VALUE" select="$VALUE"/>
         </xsl:apply-templates>
-        </xsl:if>
         #endregion
 
         #region Formatting
