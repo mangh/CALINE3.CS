@@ -36,15 +36,15 @@ namespace CALINE3
     public class Link
     {
         #region Constants
-        public static readonly Meter MIN_HEIGHT = new(-10.0);
-        public static readonly Meter MAX_HEIGHT = new(10.0);
+        public static readonly Meter MIN_HEIGHT = (Meter)(-10.0);
+        public static readonly Meter MAX_HEIGHT = (Meter)10.0;
 
-        public static readonly Meter MAX_LENGTH = new(10000.0);
-        public static readonly Meter MIN_LENGTH = new(1.0);
+        public static readonly Meter MIN_LENGTH = (Meter)1.0;
+        public static readonly Meter MAX_LENGTH = (Meter)10000.0;
 
-        public static readonly Meter LENGTH_UNIT = new(1.0);
+        public static readonly Meter LENGTH_UNIT = (Meter)1.0;
 
-        public static readonly Meter DEPRESSED_SECTION_DEPTH_THRESHOLD = new(-1.5);
+        public static readonly Meter DEPRESSED_SECTION_DEPTH_THRESHOLD = (Meter)(-1.5);
 
         /// <value>Link tags</value>
         private static readonly string[] TAG =

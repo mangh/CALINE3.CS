@@ -22,10 +22,10 @@ namespace CALINE3
     public class Euclid2D
     {
         #region Constants
-        public static readonly Radian PI = new(System.Math.PI);
+        public static readonly Radian PI = (Radian)System.Math.PI;
         public static readonly Radian PI2 = 2 * PI;
         public static readonly Radian PI_2 = PI / 2.0;
-        public static readonly Radian ZERO_ANGLE = new(0.0);
+        public static readonly Radian ZERO_ANGLE = (Radian)0.0;
         #endregion
 
         #region Methods

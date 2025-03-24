@@ -46,10 +46,10 @@ namespace CALINE3
     public class Plume
     {
         #region Constants
-        private static readonly Microgram_Meter3 ZERO_CONCENTRATION = new(0.0);
-        private static readonly Meter_Sec ZERO_VELOCITY = new(0.0);
-        private static readonly Meter ZERO_POSITION = new(0.0);
-        private static readonly Meter MAX_MIXH = new(1000.0);
+        private static readonly Microgram_Meter3 ZERO_CONCENTRATION = (Microgram_Meter3)0.0;
+        private static readonly Meter_Sec ZERO_VELOCITY = (Meter_Sec)0.0;
+        private static readonly Meter ZERO_POSITION = (Meter)0.0;
+        private static readonly Meter MAX_MIXH = (Meter)1000.0;
         #endregion
 
         #region Power-curve coefficients & Gaussian plume dispersion parameters

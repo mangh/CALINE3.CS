@@ -36,7 +36,7 @@ namespace CALINE3
         /// <summary>
         /// Zero source strength (from a <see cref="LinkElement"/> that makes no contribution).
         /// </summary>
-        private static readonly Microgram_MeterSec ZERO_STRENGTH = new(0.0);
+        private static readonly Microgram_MeterSec ZERO_STRENGTH = (Microgram_MeterSec)0.0;
         #endregion
 
         #region Properties
