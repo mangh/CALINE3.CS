@@ -29,24 +29,24 @@ namespace CALINE3
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Clockwise angle α [rad] formed by North direction (Y-axis) and vector starting from 
-        /// the point (a,b) and terminating at the point (x,y).<br/>
-        /// </summary>
-        /// <remarks>(Atan-based version)</remarks>
-        /// <param name="a">X-coordinate of the start point.</param>
-        /// <param name="b">Y-coordinate of the start point.</param>
-        /// <param name="x">X-coordinate of the end point.</param>
-        /// <param name="y">Y-coordinate of the end point.</param>
-        /// <returns>Angle: 0 &#8804; α &lt; 2&#960; [rad].</returns>
-        public static Radian Azimuth(Meter a, Meter b, Meter x, Meter y)
-        {
-            Radian alpha = PI_2 - Atan((y - b) / (x - a));
-            return (x > a) ? alpha :
-                   (x < a) ? PI + alpha :
-                   (y < b) ? PI : 
-                   ZERO_ANGLE;
-        }
+        ///// <summary>
+        ///// Clockwise angle α [rad] formed by North direction (Y-axis) and vector starting from 
+        ///// the point (a,b) and terminating at the point (x,y).<br/>
+        ///// </summary>
+        ///// <remarks>(Atan-based version)</remarks>
+        ///// <param name="a">X-coordinate of the start point.</param>
+        ///// <param name="b">Y-coordinate of the start point.</param>
+        ///// <param name="x">X-coordinate of the end point.</param>
+        ///// <param name="y">Y-coordinate of the end point.</param>
+        ///// <returns>Angle: 0 &#8804; α &lt; 2&#960; [rad].</returns>
+        //public static Radian Azimuth(Meter a, Meter b, Meter x, Meter y)
+        //{
+        //    Radian alpha = PI_2 - Atan((y - b) / (x - a));
+        //    return (x > a) ? alpha :
+        //           (x < a) ? PI + alpha :
+        //           (y < b) ? PI : 
+        //           ZERO_ANGLE;
+        //}
 
         /// <summary>
         /// Clockwise angle α [rad] formed by North direction (Y-axis) and vector starting from 

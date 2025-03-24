@@ -187,9 +187,9 @@ namespace CALINE3
 
             // Link bearing
 #if DIMENSIONAL_ANALYSIS
-            LBRG = Degree.From(Euclid2D.Azimuth(XL1, YL1, XL2, YL2));
+            LBRG = Degree.From(Euclid2D.Azimuth2(XL1, YL1, XL2, YL2));
 #else
-            LBRG = Metrology.Degree.FromRadian(Euclid2D.Azimuth(XL1, YL1, XL2, YL2));
+            LBRG = Metrology.Degree.FromRadian(Euclid2D.Azimuth2(XL1, YL1, XL2, YL2));
 #endif
 
             // Lineal source strength
@@ -224,7 +224,7 @@ namespace CALINE3
 #else
             Radian lbrg = Metrology.Radian.FromDegree(LBRG);
 #endif
-            Radian GAMMA = Euclid2D.Azimuth(XL1, YL1, rcp.XR, rcp.YR) - lbrg;
+            Radian GAMMA = Euclid2D.Azimuth2(XL1, YL1, rcp.XR, rcp.YR) - lbrg;
 
             Meter D = LR * Sin(GAMMA);
             Meter L = LR * Cos(GAMMA) - LL;

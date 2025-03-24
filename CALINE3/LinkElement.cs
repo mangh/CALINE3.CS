@@ -88,7 +88,7 @@ namespace CALINE3
             ELL2 = _master.W2 * Cos(_flow.TETA) + EL2 * Sin(_flow.TETA);
 
             // Central sub-element half-length
-            CSL2 = (_flow.TETA >= Atan(_master.W2 / EL2)) ? _master.W2 / Sin(_flow.TETA) : EL2 / Cos(_flow.TETA);
+            CSL2 = (_flow.TETA >= Atan2(_master.W2, EL2)) ? _master.W2 / Sin(_flow.TETA) : EL2 / Cos(_flow.TETA);
 
             // Central sub-element half-width
             EM2 = Abs(EL2 * Sin(_flow.TETA) - _master.W2 * Cos(_flow.TETA));
